@@ -45,6 +45,10 @@ namespace RockPaperScissors
                 {
                     Console.WriteLine("Put in a number!");
                 }
+                else if (Int32.Parse(playerInput) < 0)
+                {
+                    Console.WriteLine("Number has to be positive!");
+                }
                 else
                 {
                     var numberOfGames = Int32.Parse(playerInput);
