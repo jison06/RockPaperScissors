@@ -9,22 +9,21 @@ namespace RockPaperScissors
     {
         public int Wins { get; set; }
         public string UsedShape { get; set; }
+        public int Ties { get; set; }
 
-        public Player(int wins)
-        {
-            Wins = wins;
-        }
         public string ChooseShape()
         {
-            string[] shapes = { "Rock", "Paper" , "Scissors" };
-            var randomShape = new Random().Next(0, 2);
+            string[] shapes = { "Rock", "Paper", "Scissors" };
+            var randomShape = new Random().Next(0, 3);
             UsedShape = shapes[randomShape];
             return shapes[randomShape];
         }
 
-        public int GetPlayerWins()
+        public int AddWin(int winCounter)
         {
-
+            winCounter++;
+            Wins = winCounter;
+            return winCounter;
         }
     }
 }

@@ -1,17 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.Design;
-using System.Text;
 
 namespace RockPaperScissors
 {
     class Game
     {
         public int GamesNeededToWin { get; set; }
-
-        public string Winner { get; set; }
-
+        public int Ties { get; set; }
         public int FindGamesNeededToWin(int gamesToPlay)
         {
             var requiredGamesToWin = 0;
@@ -25,7 +19,7 @@ namespace RockPaperScissors
                 }
                 else
                 {
-                    requiredGamesToWin = i;
+                    requiredGamesToWin = i + 1;
                 }
             }
 
@@ -64,50 +58,80 @@ namespace RockPaperScissors
             }
         }
 
-        private void PlayerWinCounter(int player1WinCount, int player2WinCount, int tieCount)
+        private void PlayerWinCounter(int player1WinCount, int player2WinCount, int tieCounter)
         {
-            Console.WriteLine($"Player1: {player1WinCount}, Player2 {player2WinCount}, Ties:{tieCount}");
+            Console.WriteLine($"Player1: {player1WinCount}, Player2 {player2WinCount}, Ties: {tieCounter}");
         }
 
-        private void GameSequence(Player winningPlayer, Player losingPlayer, int winningPlayerWinCounter, int losingPlayerWinCounter, int tieCounter)
+        private void AddTies(int tieCounter)
         {
-            if (winningPlayer.UsedShape.Contains("Rock") && losingPlayer.UsedShape.Contains("Scissors"))
+            tieCounter++;
+            Ties = tieCounter;
+        }
+
+        private void GameSequence(Player player1, Player player2)
+        {
+            var player1WinCounter = player1.Wins;
+            var player2WinCounter = player2.Wins;
+            var tieCounter = Ties;
+
+            if (player1.UsedShape.Contains("Rock") && player2.UsedShape.Contains("Scissors"))
             {
-                winningPlayerWinCounter++;
-                PlayerWinCounter(winningPlayerWinCounter, losingPlayerWinCounter, tieCounter);
+                player1.AddWin(player1WinCounter);
+                PlayerWinCounter(player1.Wins, player2.Wins, tieCounter);
+                Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
             }
-            else if (winningPlayer.UsedShape.Contains("Paper") && losingPlayer.UsedShape.Contains("Rock"))
+            else if (player1.UsedShape.Contains("Paper") && player2.UsedShape.Contains("Rock"))
             {
-                winningPlayerWinCounter++;
-                PlayerWinCounter(winningPlayerWinCounter, losingPlayerWinCounter, tieCounter);
+                player1.AddWin(player1WinCounter);
+                PlayerWinCounter(player1.Wins, player2.Wins, tieCounter);
+                Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
             }
-            else if (winningPlayer.UsedShape.Contains("Scissors") && losingPlayer.UsedShape.Contains("Paper"))
+            else if (player1.UsedShape.Contains("Scissors") && player2.UsedShape.Contains("Paper"))
             {
-                winningPlayerWinCounter++;
-                PlayerWinCounter(winningPlayerWinCounter, losingPlayerWinCounter, tieCounter);
+                player1.AddWin(player1WinCounter);
+                PlayerWinCounter(player1.Wins, player2.Wins, tieCounter);
+                Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
+            }
+            else if (player2.UsedShape.Contains("Rock") && player1.UsedShape.Contains("Scissors"))
+            {
+                player2.AddWin(player2WinCounter);
+                PlayerWinCounter(player1.Wins, player2.Wins, tieCounter);
+                Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
+            }
+            else if (player2.UsedShape.Contains("Paper") && player1.UsedShape.Contains("Rock"))
+            {
+                player2.AddWin(player2WinCounter);
+                PlayerWinCounter(player1.Wins, player2.Wins, tieCounter);
+                Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
+            }
+            else if (player2.UsedShape.Contains("Scissors") && player1.UsedShape.Contains("Paper"))
+            {
+                player2.AddWin(player2WinCounter);
+                PlayerWinCounter(player1.Wins, player2.Wins, tieCounter);
+                Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
             }
             else
             {
-                tieCounter++;
-                PlayerWinCounter(winningPlayerWinCounter, losingPlayerWinCounter, tieCounter);
+                AddTies(tieCounter);
+                PlayerWinCounter(player1WinCounter, player2WinCounter, tieCounter);
+                Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
             }
         }
 
         public void RunGame()
         {
-            var player1WinCounter = 0;
-            var player2WinCounter = 0;
-            var tieCounter = 0;
-            Player player1 = new Player(player1WinCounter);
-            Player player2 = new Player(player2WinCounter);
+            Player player1 = new Player();
+            Player player2 = new Player();
 
-            while (player1WinCounter < GamesNeededToWin || player2WinCounter < GamesNeededToWin)
+            while (player1.Wins < GamesNeededToWin && player2.Wins < GamesNeededToWin)
             {
                 player1.ChooseShape();
                 player2.ChooseShape();
-                GameSequence(player1, player2, player1WinCounter, player2WinCounter, tieCounter);
-                GameSequence(player2, player1, player2WinCounter, player1WinCounter, tieCounter);
+                GameSequence(player1, player2);
             }
+
+            Console.WriteLine(player1.Wins > player2.Wins ? "Winner: Player 1" : "Winner: Player 2");
         }
     }
 }
