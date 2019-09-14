@@ -4,9 +4,11 @@ namespace RockPaperScissors
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Console.WriteLine("Hello World!");
+            Game rockPaperScissorsGame = new Game();
+            rockPaperScissorsGame.GamesToBePlayed();
+            rockPaperScissorsGame.RunGame();
         }
     }
 }
