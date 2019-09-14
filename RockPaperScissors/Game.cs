@@ -6,6 +6,7 @@ namespace RockPaperScissors
     {
         public int GamesNeededToWin { get; set; }
         public int Ties { get; set; }
+
         public int FindGamesNeededToWin(int gamesToPlay)
         {
             var requiredGamesToWin = 0;

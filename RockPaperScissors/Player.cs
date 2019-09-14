@@ -6,7 +6,6 @@ namespace RockPaperScissors
     {
         public int Wins { get; set; }
         public string UsedShape { get; set; }
-        public int Ties { get; set; }
 
         public string ChooseShape()
         {
