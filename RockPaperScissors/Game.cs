@@ -37,7 +37,7 @@ namespace RockPaperScissors
 				int number = 0;
 				var isNumber = Int32.TryParse(playerInput, out number);
 
-				if (playerInput == string.Empty)
+				if (string.IsNullOrEmpty(playerInput))
 				{
 					Console.WriteLine("Choose an odd number!");
 				}
@@ -121,8 +121,8 @@ namespace RockPaperScissors
 
 		public void RunGame()
 		{
-			Player player1 = new Player();
-			Player player2 = new Player();
+			var player1 = new Player();
+			var player2 = new Player();
 
 			while (player1.Wins < GamesNeededToWin && player2.Wins < GamesNeededToWin)
 			{
