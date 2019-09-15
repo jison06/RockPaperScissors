@@ -4,9 +4,11 @@
     {
         static void Main()
         {
-            Game rockPaperScissorsGame = new Game();
+            var rockPaperScissorsGame = new Game();
+			var player1 = new Player();
+			var player2 = new Player();
             rockPaperScissorsGame.GamesToBePlayed();
-            rockPaperScissorsGame.RunGame();
+            rockPaperScissorsGame.RunGame(player1, player2);
         }
     }
 }

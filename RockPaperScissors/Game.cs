@@ -70,7 +70,7 @@ namespace RockPaperScissors
 
 		private void AddTies(int tieCounter)
 		{
-			tieCounter++;
+			++tieCounter;
 			Ties = tieCounter;
 		}
 
@@ -81,7 +81,7 @@ namespace RockPaperScissors
 			Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
 		}
 
-		private void GameSequence(Player player1, Player player2)
+		public void GameSequence(Player player1, Player player2)
 		{
 			var player1WinCounter = player1.Wins;
 			var player2WinCounter = player2.Wins;
@@ -119,11 +119,8 @@ namespace RockPaperScissors
 			}
 		}
 
-		public void RunGame()
+		public void RunGame(Player player1, Player player2)
 		{
-			var player1 = new Player();
-			var player2 = new Player();
-
 			while (player1.Wins < GamesNeededToWin && player2.Wins < GamesNeededToWin)
 			{
 				player1.ChooseShape();
