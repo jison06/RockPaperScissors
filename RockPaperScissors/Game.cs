@@ -63,22 +63,25 @@ namespace RockPaperScissors
 			}
 		}
 
+		//fix logic
 		private void PlayerWinCounter(int player1WinCount, int player2WinCount, int tieCounter)
 		{
 			Console.WriteLine($"Player1: {player1WinCount}, Player2 {player2WinCount}, Ties: {tieCounter}");
 		}
 
+		//fix logic
 		private void AddTies(int tieCounter)
 		{
 			++tieCounter;
 			Ties = tieCounter;
 		}
 
-		private void DisplayGameStatistics(Player player1, Player player2, int tieCounter, int winningPlayerWinCounter)
+		//fix logic
+		private void DisplayGameStatistics(Player winningPlayer, Player losingPlayer, int tieCounter, int winningPlayerWinCounter)
 		{
-			player1.AddWin(winningPlayerWinCounter);
-			PlayerWinCounter(player1.Wins, player2.Wins, tieCounter);
-			Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
+			winningPlayer.AddWin(winningPlayerWinCounter);
+			PlayerWinCounter(winningPlayer.Wins, losingPlayer.Wins, tieCounter);
+			Console.WriteLine($"Player1: {winningPlayer.UsedShape}, Player2: {losingPlayer.UsedShape}");
 		}
 
 		public void GameSequence(Player player1, Player player2)

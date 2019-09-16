@@ -17,9 +17,10 @@ namespace RockPaperScissors
 
         public int AddWin(int winCounter)
         {
-            winCounter++;
+            ++winCounter;
             Wins = winCounter;
             return winCounter;
         }
     }
 }
+
