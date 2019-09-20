@@ -34,12 +34,12 @@ namespace RockPaperScissors
 			var game = new Game ();
 			var expectedTieCount = 1;
 
-			GameSequence(player1, player2);
+			game.GameSequence(player1, player2);
 			Assert.AreEqual(expectedTieCount, game.Ties);
 		}
 
 		[Test]
-		public void Should_increment_win_counter_when_shapes_are_rock_and_scissors()
+		public void Should_increment_win_counter_for_player_one_when_shapes_are_rock_and_scissors()
 		{
 			var player1 = new Player { UsedShape = "Rock" };
 			var player2 = new Player { UsedShape = "Scissors" };
