@@ -64,7 +64,7 @@ namespace RockPaperScissors
 			RunGame(player1, player2);
 			Assert.AreEqual(game.Ties, expectedTieCount);
 		}
-
+		
 		[Test]
 		public void Should_increment_win_counter_when_shapes_are_scissors_and_paper()
 		{

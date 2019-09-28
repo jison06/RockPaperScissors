@@ -6,7 +6,7 @@ namespace RockPaperScissors
 	{
 		public int Wins { get; set; }
 		public string UsedShape { get; set; }
-		public string playerName { get; set; }
+		public bool Winner { get; set; }
 
 		public string ChooseShape()
 		{
@@ -20,18 +20,8 @@ namespace RockPaperScissors
 		{
 			++winCounter;
 			Wins = winCounter;
+			Winner = true;
 			return Wins;
-		}
-
-		//find a way to make a check for the wins for when a player wins
-		public bool IsWinningPlayer()
-		{
-			var currentWinCounter = Wins;
-			var oldWinCount = --currentWinCounter;
-			if (++oldWinCount == Wins)
-				return true;
-			
-			return false;
 		}
 	}
 }

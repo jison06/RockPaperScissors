@@ -77,68 +77,30 @@ namespace RockPaperScissors
 			}
 		}
 
-		private string GetWinningPlayerName(Player player1, Player player2)
-		{
-			if (player1.IsWinningPlayer())
-			{
-				return FirstPlayerName;
-			}
-
-			if (player2.IsWinningPlayer())
-			{
-				return SecondPlayerName;
-			}
-
-			return string.Empty;
-		}
-
-		private string GetLosingPlayerName(Player player1, Player player2)
-		{
-			if (!player1.IsWinningPlayer())
-			{
-				return FirstPlayerName;
-			}
-
-			if (!player2.IsWinningPlayer())
-			{
-				return SecondPlayerName;
-			}
-
-			return string.Empty;
-		}
-
 		//fix logic
 		private void PlayerWinCounter(int player1WinCount, int player2WinCount, int tieCounter, Player player1, Player player2)
 		{
-			Console.WriteLine($"Winner: {GetWinningPlayerName(player1, player2)}, Loser: {GetLosingPlayerName(player1, player2)}");
-			Console.WriteLine($"Player1: {player1WinCount}, Player2 {player2WinCount}, Ties: {tieCounter}");
+			Console.WriteLine($"Winner: {(player1.Winner ? $"{FirstPlayerName}" : $"{SecondPlayerName}")}, Loser: {(player1.Winner ? $"{SecondPlayerName}" : $"{FirstPlayerName}")}");
+			Console.WriteLine($"{FirstPlayerName}: {player1WinCount}, {SecondPlayerName} {player2WinCount}, Ties: {tieCounter}");
+			player1.Winner = false;
+			player2.Winner = false;
 		}
 
 		private void DisplayTieCounter(int player1WinCount, int player2WinCount, int tieCounter)
 		{
-			Console.WriteLine($"Player1: {player1WinCount}, Player2 {player2WinCount}, Ties: {tieCounter}");
+			Console.WriteLine($"{FirstPlayerName}: {player1WinCount}, {SecondPlayerName} {player2WinCount}, Ties: {tieCounter}");
 		}
 
-		private int AddTies()
+		private void AddTies()
 		{
 			++Ties;
-			return Ties;
 		}
 
 		//fix... adding win at the wrong place
 		private void DisplayGameStatistics(Player player1, Player player2, int tieCounter, int winningPlayerWinCounter)
 		{
-			if (player1.IsWinningPlayer())
-			{
-				PlayerWinCounter(player1.Wins, player2.Wins, tieCounter, player1, player2);
-			}
-
-			if (player2.IsWinningPlayer())
-			{
-				player2.AddWin(winningPlayerWinCounter);
-				PlayerWinCounter(player2.Wins, player1.Wins, tieCounter, player1, player2);
-			}
-			Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
+			PlayerWinCounter(player1.Wins, player2.Wins, tieCounter, player1, player2);
+			Console.WriteLine($"{FirstPlayerName}: {player1.UsedShape}, {SecondPlayerName}: {player2.UsedShape}");
 		}
 
 		//debug through this... player1 and player2 logic to get the losing player
@@ -181,7 +143,7 @@ namespace RockPaperScissors
 			{
 				AddTies();
 				DisplayTieCounter(player1WinCounter, player2WinCounter, Ties);
-				Console.WriteLine($"Player1: {player1.UsedShape}, Player2: {player2.UsedShape}");
+				Console.WriteLine($"{FirstPlayerName}: {player1.UsedShape}, {SecondPlayerName}: {player2.UsedShape}");
 			}
 		}
 
@@ -194,7 +156,7 @@ namespace RockPaperScissors
 				GameSequence(player1, player2);
 			}
 
-			Console.WriteLine(player1.Wins > player2.Wins ? "Winner: Player 1" : "Winner: Player 2");
+			Console.WriteLine(player1.Wins > player2.Wins ? $"Winner: {FirstPlayerName}" : $"Winner: {SecondPlayerName}");
 		}
 	}
 }
