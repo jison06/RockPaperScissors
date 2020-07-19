@@ -8,20 +8,18 @@ namespace RockPaperScissors
 		public string UsedShape { get; set; }
 		public bool Winner { get; set; }
 
-		public string ChooseShape()
+		public void ChooseShape()
 		{
 			string[] shapes = { "Rock", "Paper", "Scissors" };
 			var randomShape = new Random().Next(0, 3);
 			UsedShape = shapes[randomShape];
-			return UsedShape;
 		}
 
-		public int AddWin(int winCounter)
+		public void AddWin(int winCounter)
 		{
 			++winCounter;
 			Wins = winCounter;
 			Winner = true;
-			return Wins;
 		}
 	}
 }
